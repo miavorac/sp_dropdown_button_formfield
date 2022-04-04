@@ -54,20 +54,21 @@ class SPDropdownButtonFormField<T> extends FormField<T> {
     AutovalidateMode? autovalidateMode,
     double? menuMaxHeight,
     bool? enableFeedback,
+    BorderRadius? borderRadius,
     AlignmentGeometry alignment = AlignmentDirectional.centerStart,
   })  : assert(
-  items == null ||
-      items.isEmpty ||
-      value == null ||
-      items.where((DropdownMenuItem<T> item) {
-        return item.value == value;
-      }).length ==
-          1,
-  "There should be exactly one item with [DropdownButton]'s value: "
-      '$value. \n'
-      'Either zero or 2 or more [DropdownMenuItem]s were detected '
-      'with the same value',
-  ),
+          items == null ||
+              items.isEmpty ||
+              value == null ||
+              items.where((DropdownMenuItem<T> item) {
+                    return item.value == value;
+                  }).length ==
+                  1,
+          "There should be exactly one item with [DropdownButton]'s value: "
+          '$value. \n'
+          'Either zero or 2 or more [DropdownMenuItem]s were detected '
+          'with the same value',
+        ),
         assert(elevation != null),
         assert(iconSize != null),
         assert(isDense != null),
@@ -76,82 +77,83 @@ class SPDropdownButtonFormField<T> extends FormField<T> {
         assert(autofocus != null),
         decoration = decoration ?? InputDecoration(focusColor: focusColor),
         super(
-        key: key,
-        onSaved: onSaved,
-        initialValue: value,
-        validator: validator,
-        autovalidateMode: autovalidateMode ?? AutovalidateMode.disabled,
-        builder: (FormFieldState<T> field) {
-          final _DropdownButtonFormFieldState<T> state =
-          field as _DropdownButtonFormFieldState<T>;
-          final InputDecoration decorationArg =
-              decoration ?? InputDecoration(focusColor: focusColor);
-          final InputDecoration effectiveDecoration =
-          decorationArg.applyDefaults(
-            Theme.of(field.context).inputDecorationTheme,
-          );
+          key: key,
+          onSaved: onSaved,
+          initialValue: value,
+          validator: validator,
+          autovalidateMode: autovalidateMode ?? AutovalidateMode.disabled,
+          builder: (FormFieldState<T> field) {
+            final _DropdownButtonFormFieldState<T> state =
+                field as _DropdownButtonFormFieldState<T>;
+            final InputDecoration decorationArg =
+                decoration ?? InputDecoration(focusColor: focusColor);
+            final InputDecoration effectiveDecoration =
+                decorationArg.applyDefaults(
+              Theme.of(field.context).inputDecorationTheme,
+            );
 
-          final bool showSelectedItem = items != null &&
-              items
-                  .where(
-                      (DropdownMenuItem<T> item) => item.value == state.value)
-                  .isNotEmpty;
-          bool isHintOrDisabledHintAvailable() {
-            final bool isDropdownDisabled =
-                onChanged == null || (items == null || items.isEmpty);
-            if (isDropdownDisabled) {
-              return hint != null || disabledHint != null;
-            } else {
-              return hint != null;
+            final bool showSelectedItem = items != null &&
+                items
+                    .where(
+                        (DropdownMenuItem<T> item) => item.value == state.value)
+                    .isNotEmpty;
+            bool isHintOrDisabledHintAvailable() {
+              final bool isDropdownDisabled =
+                  onChanged == null || (items == null || items.isEmpty);
+              if (isDropdownDisabled) {
+                return hint != null || disabledHint != null;
+              } else {
+                return hint != null;
+              }
             }
-          }
 
-          final bool isEmpty =
-              !showSelectedItem && !isHintOrDisabledHintAvailable();
+            final bool isEmpty =
+                !showSelectedItem && !isHintOrDisabledHintAvailable();
 
-          // An unfocusable Focus widget so that this widget can detect if its
-          // descendants have focus or not.
-          return Focus(
-            canRequestFocus: false,
-            skipTraversal: true,
-            child: Builder(builder: (BuildContext context) {
-              return InputDecorator(
-                decoration:
-                effectiveDecoration.copyWith(errorText: field.errorText),
-                isEmpty: isEmpty,
-                isFocused: Focus.of(context).hasFocus,
-                child: DropdownButtonHideUnderline(
-                  child: DropdownButton<T>(
-                    items: items,
-                    selectedItemBuilder: selectedItemBuilder,
-                    value: state.value,
-                    hint: hint,
-                    disabledHint: disabledHint,
-                    onChanged: onChanged == null ? null : state.didChange,
-                    onTap: onTap,
-                    elevation: elevation,
-                    style: style,
-                    icon: icon,
-                    iconDisabledColor: iconDisabledColor,
-                    iconEnabledColor: iconEnabledColor,
-                    iconSize: iconSize,
-                    isDense: isDense,
-                    isExpanded: isExpanded,
-                    itemHeight: itemHeight,
-                    focusColor: focusColor,
-                    focusNode: focusNode,
-                    autofocus: autofocus,
-                    dropdownColor: dropdownColor,
-                    menuMaxHeight: menuMaxHeight,
-                    enableFeedback: enableFeedback,
-                    alignment: alignment,
+            // An unfocusable Focus widget so that this widget can detect if its
+            // descendants have focus or not.
+            return Focus(
+              canRequestFocus: false,
+              skipTraversal: true,
+              child: Builder(builder: (BuildContext context) {
+                return InputDecorator(
+                  decoration:
+                      effectiveDecoration.copyWith(errorText: field.errorText),
+                  isEmpty: isEmpty,
+                  isFocused: Focus.of(context).hasFocus,
+                  child: DropdownButtonHideUnderline(
+                    child: DropdownButton<T>(
+                      items: items,
+                      selectedItemBuilder: selectedItemBuilder,
+                      value: state.value,
+                      hint: hint,
+                      disabledHint: disabledHint,
+                      onChanged: onChanged == null ? null : state.didChange,
+                      onTap: onTap,
+                      elevation: elevation,
+                      style: style,
+                      icon: icon,
+                      iconDisabledColor: iconDisabledColor,
+                      iconEnabledColor: iconEnabledColor,
+                      iconSize: iconSize,
+                      isDense: isDense,
+                      isExpanded: isExpanded,
+                      itemHeight: itemHeight,
+                      focusColor: focusColor,
+                      focusNode: focusNode,
+                      autofocus: autofocus,
+                      dropdownColor: dropdownColor,
+                      menuMaxHeight: menuMaxHeight,
+                      enableFeedback: enableFeedback,
+                      alignment: alignment,
+                      borderRadius: borderRadius,
+                    ),
                   ),
-                ),
-              );
-            }),
-          );
-        },
-      );
+                );
+              }),
+            );
+          },
+        );
 
   /// {@macro flutter.material.dropdownButton.onChanged}
   final ValueChanged<T?>? onChanged;
@@ -195,4 +197,3 @@ class _DropdownButtonFormFieldState<T> extends FormFieldState<T> {
     }
   }
 }
-
